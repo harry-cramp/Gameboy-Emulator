@@ -1,0 +1,4 @@
+﻿main.obj : error LNK2019: unresolved external symbol _glfwInit referenced in function _main
+D:\root\cpp_libs\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+D:\root\cpp_libs\glfw-3.3.2.bin.WIN64\lib-vc2019\glfw3dll.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+C:\Users\harry\source\repos\GameboyEMU\Debug\GameboyEMU.exe : fatal error LNK1120: 1 unresolved externals
