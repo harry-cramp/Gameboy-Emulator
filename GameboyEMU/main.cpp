@@ -10,11 +10,13 @@
 #include <glfw3.h>
 
 #include "memory.h"
+#include "flags.h"
 
 using namespace std;
 
 int main() {
 	memory_init();
+	flags_init();
 
 	return 0;
 }
