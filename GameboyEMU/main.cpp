@@ -11,6 +11,7 @@
 
 #include "memory.h"
 #include "flags.h"
+#include "opcodes.h"
 
 using namespace std;
 
