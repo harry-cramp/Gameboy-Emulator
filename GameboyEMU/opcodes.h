@@ -2,12 +2,6 @@
 
 // all of the constant opcodes used by the Gameboy's SM83 CPU
 
-struct Opcode {
-	int instruction_code;
-	int byte_size;
-	int cycles;
-};
-
 // load instructions
 const int LOAD_HL = 0x36;
 const int LOAD_A_BC = 0x0A;
@@ -26,5 +20,3 @@ const int LOAD_A_ABSHL_INC = 0x2A;
 const int LOAD_ABSHL_A_INC = 0x22;
 const int LOAD_ABS_SP = 0x08;
 const int LOAD_SP_HL = 0xF9;
-
-void opcodes_init();
