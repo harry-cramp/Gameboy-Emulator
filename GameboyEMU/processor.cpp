@@ -52,7 +52,6 @@ void load_from_register_to_abs_address(struct Register data_source_reg, struct R
 }
 
 int generate_full_address(int lsb, int msb) {
-	int full_address = (msb << 8) + lsb;
 	return (msb << 8) + lsb;
 }
 
@@ -118,6 +117,12 @@ void execute(int opcode) {
 		case LOADH_A_C: {
 			temp_register.value = get_lower_register_value(bc_register);
 			load_from_abs_address_to_register(temp_register, &accumulator, true);
+			break;
+		}
+
+		case LOADH_C_A: {
+			temp_register.value = get_lower_register_value(bc_register);
+			load_from_register_to_abs_address(accumulator, temp_register, true);
 			break;
 		}
 
