@@ -26,7 +26,7 @@ void dump_register_values() {
 }
 
 void processor_init() {
-	register_init(&accumulator, REGISTER_SIZE_8_BIT, 69);
+	register_init(&accumulator, REGISTER_SIZE_8_BIT, 0);
 	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&de_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
@@ -53,7 +53,6 @@ void load_from_register_to_abs_address(struct Register data_source_reg, struct R
 
 int generate_full_address(int lsb, int msb) {
 	int full_address = (msb << 8) + lsb;
-	cout << "GENERATED FULL ADDRESS: " << full_address << endl;
 	return (msb << 8) + lsb;
 }
 
@@ -87,6 +86,7 @@ void execute(int opcode) {
 			break;
 		}
 
+		// load data from abs address in A -> BC
 		case LOAD_BC: {
 			load_from_register_to_abs_address(accumulator, bc_register, false);
 			break;
@@ -97,11 +97,10 @@ void execute(int opcode) {
 			break;
 		}
 
+		// load data from abs address as parameter -> A
 		case LOAD_A_ABS: {
 			int lsb_parameter = get_data(get_program_counter_inc());
-			cout << "LSB: " << lsb_parameter << endl;
 			int msb_parameter = get_data(get_program_counter_inc());
-			cout << "MSB: " << msb_parameter << endl;
 			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
 			load_from_abs_address_to_register(temp_register, &accumulator, false);
 			break;
@@ -115,8 +114,10 @@ void execute(int opcode) {
 			break;
 		}
 
+		// load from abs address in C to A using high addressing (prefix 0xFF onto specified address)
 		case LOADH_A_C: {
-			load_from_abs_address_to_register(bc_register, &accumulator, true);
+			temp_register.value = get_lower_register_value(bc_register);
+			load_from_abs_address_to_register(temp_register, &accumulator, true);
 			break;
 		}
 
