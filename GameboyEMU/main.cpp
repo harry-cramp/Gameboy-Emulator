@@ -12,12 +12,18 @@
 #include "memory.h"
 #include "flags.h"
 #include "opcodes.h"
+#include "processor.h"
 
 using namespace std;
 
-int main() {
+void system_init() {
 	memory_init();
 	flags_init();
+	processor_init();
+}
+
+int main() {
+	system_init();
 
 	return 0;
 }

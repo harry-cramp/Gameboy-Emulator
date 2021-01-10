@@ -24,12 +24,27 @@
     <ClCompile Include="flags.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="processor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="register.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="memory.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="flags.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="opcodes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="register.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="processor.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
