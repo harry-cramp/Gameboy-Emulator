@@ -58,7 +58,7 @@ int generate_full_address(int lsb, int msb) {
 // get PC value and increment
 int get_program_counter_inc() {
 	int program_counter_value = program_counter.value;
-	program_counter.value = program_counter.value + 1;
+	increment_register(&program_counter);
 	return program_counter_value;
 }
 
@@ -136,6 +136,31 @@ void execute(int opcode) {
 		case LOADH_ABS_A: {
 			temp_register.value = get_data(get_program_counter_inc());
 			load_from_register_to_abs_address(accumulator, temp_register, true);
+			break;
+		}
+
+		// load between memory and HL register and decrement/increment HL
+		case LOAD_A_ABSHL_DEC: {
+			load_from_abs_address_to_register(hl_register, &accumulator, false);
+			decrement_register(&hl_register);
+			break;
+		}
+
+		case LOAD_ABSHL_A_DEC: {
+			load_from_register_to_abs_address(accumulator, hl_register, false);
+			decrement_register(&hl_register);
+			break;
+		}
+
+		case LOAD_A_ABSHL_INC: {
+			load_from_abs_address_to_register(hl_register, &accumulator, false);
+			increment_register(&hl_register);
+			break;
+		}
+
+		case LOAD_ABSHL_A_INC: {
+			load_from_register_to_abs_address(accumulator, hl_register, false);
+			increment_register(&hl_register);
 			break;
 		}
 
