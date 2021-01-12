@@ -22,3 +22,11 @@ void set_register_value(struct Register* reg, int value) {
 	value &= ((int)pow(2.0, (double)register_size) - 1);
 	reg->value = value;
 }
+
+void decrement_register(struct Register* reg) {
+	reg->value = reg->value - 1;
+}
+
+void increment_register(struct Register* reg) {
+	reg->value = reg->value + 1;
+}

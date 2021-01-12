@@ -12,3 +12,5 @@ void register_init(struct Register*, int, int);
 int get_upper_register_value(struct Register);
 int get_lower_register_value(struct Register);
 void set_register_value(struct Register *, int);
+void decrement_register(struct Register*);
+void increment_register(struct Register*);
