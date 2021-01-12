@@ -126,6 +126,19 @@ void execute(int opcode) {
 			break;
 		}
 
+		// load from abs address in memory (PC + 1) to A using high addressing
+		case LOADH_A_ABS: {
+			temp_register.value = get_data(get_program_counter_inc());
+			load_from_abs_address_to_register(temp_register, &accumulator, true);
+			break;
+		}
+
+		case LOADH_ABS_A: {
+			temp_register.value = get_data(get_program_counter_inc());
+			load_from_register_to_abs_address(accumulator, temp_register, true);
+			break;
+		}
+
 		default:
 			// process non-constant opcodes
 			break;
