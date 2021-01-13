@@ -164,6 +164,19 @@ void execute(int opcode) {
 			break;
 		}
 
+		case LOAD_ABS_SP: {
+			int lsb_parameter = get_data(get_program_counter_inc());
+			int msb_parameter = get_data(get_program_counter_inc());
+			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+			load_from_register_to_abs_address(stack_pointer, temp_register, false);
+			break;
+		}
+
+		case LOAD_SP_HL: {
+			set_register_value(&stack_pointer, hl_register.value);
+			break;
+		}
+
 		default:
 			// process non-constant opcodes
 			break;
