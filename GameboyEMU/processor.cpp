@@ -4,6 +4,7 @@
 #include "memory.h"
 #include "register.h"
 #include "processor.h"
+#include "parameter_processor.h"
 
 using namespace std;
 
@@ -60,6 +61,15 @@ int get_program_counter_inc() {
 	int program_counter_value = program_counter.value;
 	increment_register(&program_counter);
 	return program_counter_value;
+}
+
+void process_parameter_instructions(int opcode) {
+	int* parameters;
+	if (parameters = get_parameters_if_match(opcode, TEMPLATE_LOAD_REGISTER_TO_REGISTER)) {
+		cout << "MATCH FOUND: LOAD REGISTER TO REGISTER" << endl;
+		cout << "PARAMETER 1: " << parameters[0] << endl;
+		cout << "PARAMETER 2: " << parameters[1] << endl;
+	}
 }
 
 void execute(int opcode) {
@@ -179,6 +189,8 @@ void execute(int opcode) {
 
 		default:
 			// process non-constant opcodes
+			cout << "NON-CONSTANT OPCODE ENCOUNTERED" << endl;
+			process_parameter_instructions(opcode);
 			break;
 	}
 }

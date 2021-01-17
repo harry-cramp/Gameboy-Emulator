@@ -146,11 +146,13 @@
     <ClCompile Include="flags.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory.cpp" />
+    <ClCompile Include="parameter_processor.cpp" />
     <ClCompile Include="processor.cpp" />
     <ClCompile Include="register.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="flags.h" />
+    <ClInclude Include="parameter_processor.h" />
     <ClInclude Include="processor.h" />
     <ClInclude Include="register.h" />
     <ClInclude Include="memory.h" />
