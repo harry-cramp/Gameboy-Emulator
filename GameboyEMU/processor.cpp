@@ -52,6 +52,35 @@ void load_from_register_to_abs_address(struct Register data_source_reg, struct R
 	set_data(address, data);
 }
 
+void load_register_to_register(struct Register source_reg, int source_size, struct Register* receiver_reg, int receiver_size) {
+	int source_value = 0;
+	switch (source_size) {
+		case REGISTER_FULL:
+			source_value = source_reg.value;
+			break;
+
+		case REGISTER_LOW:
+			source_value = source_reg.value & 0x00FF;
+			break;
+
+		case REGISTER_HIGH:
+			source_value = (source_reg.value & 0xFF00) >> 8;
+			break;
+	}
+
+	switch (receiver_size) {
+		case REGISTER_FULL:
+			receiver_reg->value = source_reg.value;
+			break;
+		case REGISTER_LOW:
+			receiver_reg->value = (receiver_reg->value & 0xFF00) + source_reg.value;
+			break;
+		case REGISTER_HIGH:
+			receiver_reg->value = (receiver_reg->value & 0x00FF) + (source_reg.value << 8);
+			break;
+	}
+}
+
 int generate_full_address(int lsb, int msb) {
 	return (msb << 8) + lsb;
 }
@@ -63,12 +92,33 @@ int get_program_counter_inc() {
 	return program_counter_value;
 }
 
+int register_is_upper(int register_id) {
+	switch (register_id) {
+		case REGISTER_ACCUMULATOR:
+			return REGISTER_FULL;
+		default:
+			return register_id % 2;
+	}
+}
+
+Register* get_register_from_id(int register_id) {
+	if (register_id == 0b000 || register_id == 0b001)
+		return &bc_register;
+	else if (register_id == 0b010 || register_id == 0b011)
+		return &de_register;
+	else if (register_id == 0b100 || register_id == 0b101 || register_id == 0b110)
+		return &hl_register;
+	else
+		return &accumulator;
+}
+
 void process_parameter_instructions(int opcode) {
 	int* parameters;
 	if (parameters = get_parameters_if_match(opcode, TEMPLATE_LOAD_REGISTER_TO_REGISTER)) {
 		cout << "MATCH FOUND: LOAD REGISTER TO REGISTER" << endl;
-		cout << "PARAMETER 1: " << parameters[0] << endl;
-		cout << "PARAMETER 2: " << parameters[1] << endl;
+		// get if parameters high
+		// get reg from parameters
+		// load from source to destination
 	}
 }
 
