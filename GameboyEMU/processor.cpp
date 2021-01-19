@@ -28,7 +28,7 @@ void dump_register_values() {
 
 void processor_init() {
 	register_init(&accumulator, REGISTER_SIZE_8_BIT, 0);
-	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0);
+	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0xFF00);
 	register_init(&de_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&temp_register, REGISTER_SIZE_16_BIT, 0);
@@ -68,15 +68,18 @@ void load_register_to_register(struct Register source_reg, int source_size, stru
 			break;
 	}
 
+	int receiver_value = 0;
 	switch (receiver_size) {
 		case REGISTER_FULL:
 			receiver_reg->value = source_reg.value;
 			break;
 		case REGISTER_LOW:
-			receiver_reg->value = (receiver_reg->value & 0xFF00) + source_reg.value;
+			receiver_value = (receiver_reg->value & 0xFF00) + source_value;
+			receiver_reg->value = receiver_value;
 			break;
 		case REGISTER_HIGH:
-			receiver_reg->value = (receiver_reg->value & 0x00FF) + (source_reg.value << 8);
+			receiver_value = (receiver_reg->value & 0x00FF) + (source_reg.value << 8);
+			receiver_reg->value = receiver_value;
 			break;
 	}
 }
@@ -117,8 +120,15 @@ void process_parameter_instructions(int opcode) {
 	if (parameters = get_parameters_if_match(opcode, TEMPLATE_LOAD_REGISTER_TO_REGISTER)) {
 		cout << "MATCH FOUND: LOAD REGISTER TO REGISTER" << endl;
 		// get if parameters high
+		int source_reg_high = register_is_upper(parameters[0]);
+		cout << "SOURCE HIGH: " << source_reg_high << endl;
+		int destination_reg_high = register_is_upper(parameters[1]);
+		cout << "DESTINATION HIGH: " << destination_reg_high << endl;
 		// get reg from parameters
+		Register* source_reg = get_register_from_id(parameters[0]);
+		Register* destination_reg = get_register_from_id(parameters[1]);
 		// load from source to destination
+		load_register_to_register(*source_reg, source_reg_high, destination_reg, destination_reg_high);
 	}
 }
 
