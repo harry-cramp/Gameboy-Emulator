@@ -75,7 +75,7 @@ int* get_parameters_if_match(int opcode, const char opcode_template[]) {
 		}
 
 		if (parse_bit(opcode_template[i]) != high_bit)
-			return (int*)-1;
+			return NULL;
 	}
 
 	return extract_parameters(opcode, x_parameter_index, y_parameter_index);
