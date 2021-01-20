@@ -25,13 +25,5 @@ void system_init() {
 int main() {
 	system_init();
 
-	cout << "FIRST PARAMETER PROCESSING TEST" << endl;
-	cout << "(I sure hope this works!!!)" << endl;
-	dump_register_values();
-	cout << "LOADING REG B -> D" << endl;
-	execute(0b01000010);
-	cout << "Executed." << endl;
-	dump_register_values();
-
 	return 0;
 }
