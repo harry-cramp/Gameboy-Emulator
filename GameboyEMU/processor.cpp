@@ -28,12 +28,12 @@ void dump_register_values() {
 
 void processor_init() {
 	register_init(&accumulator, REGISTER_SIZE_8_BIT, 0);
-	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0xABCD);
-	register_init(&de_register, REGISTER_SIZE_16_BIT, 0x00CD);
+	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0);
+	register_init(&de_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&temp_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&stack_pointer, REGISTER_SIZE_16_BIT, 0);
-	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0);
+	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0x69);
 }
 
 void load_from_abs_address_to_register(struct Register source_reg, struct Register* receiver_reg, bool high) {
@@ -126,6 +126,14 @@ void process_parameter_instructions(int opcode) {
 		Register* destination_reg = get_register_from_id(parameters[1]);
 		// load from source to destination
 		load_register_to_register(*source_reg, source_reg_high, destination_reg, destination_reg_high);
+	}else if (parameters = get_parameters_if_match(opcode, TEMPLATE_LOAD_IMMEDIATE_TO_REGISTER)) {
+		int destination_reg_high = register_is_upper(parameters[0]);
+		// read data from next location in memory
+		int n = get_data(get_program_counter_inc());
+		// get register from parameter specified in opcode
+		Register* destination_reg = get_register_from_id(parameters[0]);
+		// load value to register
+		destination_reg->value = n;
 	}
 }
 
