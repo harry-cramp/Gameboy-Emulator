@@ -95,6 +95,13 @@ int get_program_counter_inc() {
 	return program_counter_value;
 }
 
+// get absolute address from next two memory bytes and place it in temp register
+void get_full_operand_address() {
+	int lsb_parameter = get_data(get_program_counter_inc());
+	int msb_parameter = get_data(get_program_counter_inc());
+	temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+}
+
 int register_is_upper(int register_id) {
 	switch (register_id) {
 		case REGISTER_ACCUMULATOR:
@@ -198,17 +205,13 @@ void execute(int opcode) {
 
 		// load data from abs address as parameter -> A
 		case LOAD_A_ABS: {
-			int lsb_parameter = get_data(get_program_counter_inc());
-			int msb_parameter = get_data(get_program_counter_inc());
-			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+			get_full_operand_address();
 			load_from_abs_address_to_register(temp_register, &accumulator, false);
 			break;
 		}
 
 		case LOAD_ABS_A: {
-			int lsb_parameter = get_data(get_program_counter_inc());
-			int msb_parameter = get_data(get_program_counter_inc());
-			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+			get_full_operand_address();
 			load_from_register_to_abs_address(accumulator, temp_register, false);
 			break;
 		}
@@ -265,9 +268,7 @@ void execute(int opcode) {
 		}
 
 		case LOAD_ABS_SP: {
-			int lsb_parameter = get_data(get_program_counter_inc());
-			int msb_parameter = get_data(get_program_counter_inc());
-			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+			get_full_operand_address();
 			load_from_register_to_abs_address(stack_pointer, temp_register, false);
 			break;
 		}
@@ -278,9 +279,7 @@ void execute(int opcode) {
 		}
 
 		case JUMP_ABS_OP: {
-			int lsb_parameter = get_data(get_program_counter_inc());
-			int msb_parameter = get_data(get_program_counter_inc());
-			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+			get_full_operand_address();
 			set_register_value(&program_counter, temp_register.value);
 			break;
 		}
