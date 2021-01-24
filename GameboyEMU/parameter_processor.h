@@ -8,6 +8,7 @@ const int OPCODE_LENGTH = 8;
 const int REGISTER_HIGH = 0;
 const int REGISTER_LOW = 1;
 const int REGISTER_FULL = 2;
+const int REGISTER_HL_FULL = 0b110;
 const int REGISTER_ACCUMULATOR = 0b111;
 
 // Some instructions on the SM83 CPU have parameters embedded in the opcodes themselves.

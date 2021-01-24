@@ -14,3 +14,5 @@ int get_lower_register_value(struct Register);
 void set_register_value(struct Register *, int);
 void decrement_register(struct Register*);
 void increment_register(struct Register*);
+void load_to_upper(struct Register*, int data);
+void load_to_lower(struct Register*, int data);

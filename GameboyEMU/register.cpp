@@ -30,3 +30,13 @@ void decrement_register(struct Register* reg) {
 void increment_register(struct Register* reg) {
 	reg->value = reg->value + 1;
 }
+
+void load_to_upper(struct Register* reg, int data) {
+	int new_value = (reg->value & 0x00FF) + (data << 8);
+	reg->value = new_value;
+}
+
+void load_to_lower(struct Register* reg, int data) {
+	int new_value = (reg->value & 0xFF00) + data;
+	reg->value = new_value;
+}

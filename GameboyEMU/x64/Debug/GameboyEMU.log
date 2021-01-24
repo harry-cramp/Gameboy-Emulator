@@ -1,8 +1,2 @@
-﻿  parameter_processor.cpp
-C:\Users\harry\source\repos\GameboyEMU\GameboyEMU\parameter_processor.cpp(33,55): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\harry\source\repos\GameboyEMU\GameboyEMU\parameter_processor.cpp(34,55): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\harry\source\repos\GameboyEMU\GameboyEMU\parameter_processor.cpp(35,55): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\harry\source\repos\GameboyEMU\GameboyEMU\parameter_processor.cpp(46,56): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\harry\source\repos\GameboyEMU\GameboyEMU\parameter_processor.cpp(47,56): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
-C:\Users\harry\source\repos\GameboyEMU\GameboyEMU\parameter_processor.cpp(48,56): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+﻿  register.cpp
   GameboyEMU.vcxproj -> C:\Users\harry\source\repos\GameboyEMU\x64\Debug\GameboyEMU.exe

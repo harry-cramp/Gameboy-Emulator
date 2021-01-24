@@ -65,6 +65,8 @@ int* get_parameters_if_match(int opcode, const char opcode_template[]) {
 		int true_index = OPCODE_LENGTH - i - 1;
 		int high_bit = (opcode & (int)pow(2, true_index)) >> true_index;
 
+		cout << "COMPARING BITS: " << opcode_template[i] << " AND " << high_bit << endl;
+
 		if (parse_bit(opcode_template[i]) == -1) {
 			if (x_parameter_index == -1)
 				x_parameter_index = i;
@@ -74,8 +76,9 @@ int* get_parameters_if_match(int opcode, const char opcode_template[]) {
 			continue;
 		}
 
-		if (parse_bit(opcode_template[i]) != high_bit)
+		if (parse_bit(opcode_template[i]) != high_bit) {
 			return NULL;
+		}
 	}
 
 	return extract_parameters(opcode, x_parameter_index, y_parameter_index);
