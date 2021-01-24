@@ -30,7 +30,7 @@ void processor_init() {
 	register_init(&accumulator, REGISTER_SIZE_8_BIT, 0);
 	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&de_register, REGISTER_SIZE_16_BIT, 0);
-	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0x0420);
+	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&temp_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&stack_pointer, REGISTER_SIZE_16_BIT, 0);
 	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0);
@@ -159,26 +159,7 @@ void process_parameter_instructions(int opcode) {
 		Register* destination_reg = get_register_from_id(parameters[0]);
 		// load value to register
 		destination_reg->value = n;
-	}/*else if (parameters = get_parameters_if_match(opcode, TEMPLATE_LOAD_HL_ABSOLUTE_TO_REGISTER)) {
-		cout << "LOAD HL ABS TO REG" << endl;
-		int hl_address = hl_register.value;
-		int data = get_data(hl_address);
-		int destination_reg_high = register_is_upper(parameters[0]);
-		Register* destination_reg = get_register_from_id(parameters[0]);
-		switch (destination_reg_high) {
-			case REGISTER_HIGH:
-				load_to_upper(destination_reg, data);
-				break;
-
-			case REGISTER_LOW:
-				load_to_lower(destination_reg, data);
-				break;
-
-			default:
-				set_register_value(destination_reg, data);
-				break;
-		}
-	}*/
+	}
 }
 
 void execute(int opcode) {

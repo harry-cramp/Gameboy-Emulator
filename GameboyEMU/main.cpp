@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <glfw3.h>
-#include <time.h>
 
 #include "memory.h"
 #include "flags.h"
@@ -23,23 +22,8 @@ void system_init() {
 	processor_init();
 }
 
-void delay(int seconds) {
-	int now = time(NULL);
-	while (time(NULL) < now + seconds);
-}
-
 int main() {
 	system_init();
-
-	dump_register_values();
-	delay(4);
-	cout << "LOADING DATA [69] TO ADDRESS [0x420]" << endl;
-	set_data(0x420, 69);
-	delay(4);
-	cout << "EXECUTING INSTRUCTION 0x46 - LOAD DATA AT ADDRESS (HL) TO REGISTER B" << endl;
-	execute(0b01000110);
-	delay(4);
-	dump_register_values();
 
 	return 0;
 }
