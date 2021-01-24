@@ -277,6 +277,14 @@ void execute(int opcode) {
 			break;
 		}
 
+		case JUMP_ABS_OP: {
+			int lsb_parameter = get_data(get_program_counter_inc());
+			int msb_parameter = get_data(get_program_counter_inc());
+			temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+			set_register_value(&program_counter, temp_register.value);
+			break;
+		}
+
 		default:
 			// process non-constant opcodes
 			cout << "NON-CONSTANT OPCODE ENCOUNTERED" << endl;

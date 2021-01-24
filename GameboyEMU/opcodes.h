@@ -20,3 +20,6 @@ const int LOAD_A_ABSHL_INC = 0x2A;
 const int LOAD_ABSHL_A_INC = 0x22;
 const int LOAD_ABS_SP = 0x08;
 const int LOAD_SP_HL = 0xF9;
+
+// jump instructions
+const int JUMP_ABS_OP = 0xC3;
