@@ -25,10 +25,5 @@ void system_init() {
 int main() {
 	system_init();
 
-	set_data(0x00, 0xFF);
-	set_data(0x01, 0x01);
-	execute(JUMP_ABS_OP);
-	dump_register_values();
-
 	return 0;
 }
