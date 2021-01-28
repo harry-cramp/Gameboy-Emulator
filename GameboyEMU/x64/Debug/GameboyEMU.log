@@ -1,2 +1,5 @@
-﻿  processor.cpp
+﻿  flags.cpp
+  main.cpp
+  processor.cpp
+  Generating Code...
   GameboyEMU.vcxproj -> C:\Users\harry\source\repos\GameboyEMU\x64\Debug\GameboyEMU.exe

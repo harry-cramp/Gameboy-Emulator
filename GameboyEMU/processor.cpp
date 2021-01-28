@@ -34,7 +34,7 @@ void processor_init() {
 	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&temp_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&stack_pointer, REGISTER_SIZE_16_BIT, 0);
-	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0);
+	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0x21);
 }
 
 void load_from_abs_address_to_register(struct Register source_reg, struct Register* receiver_reg, bool high) {
@@ -101,6 +101,11 @@ void get_full_operand_address() {
 	int lsb_parameter = get_data(get_program_counter_inc());
 	int msb_parameter = get_data(get_program_counter_inc());
 	temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
+}
+
+// stack data by byte
+void stack(int data) {
+
 }
 
 int register_is_upper(int register_id) {
@@ -314,6 +319,18 @@ void execute(int opcode) {
 			set_register_value(&accumulator, accumulator.value ^ 0xFF);
 			clear_flag(SUBTRACT_FLAG);
 			clear_flag(HALF_CARRY_FLAG);
+			break;
+		}
+
+		case CALL_ABS: {
+			// get absolute address
+			get_full_operand_address();
+			int jump_address = temp_register.value;
+			// stack program counter
+			stack((program_counter.value & 0xFF00) >> 8);
+			stack(program_counter.value & 0xFF);
+			// set program counter to absolute address
+			set_register_value(&program_counter, jump_address);
 			break;
 		}
 

@@ -30,3 +30,6 @@ const int JUMP_REL = 0x18;
 const int FLIP_CARRY = 0x3F;
 const int SET_CARRY = 0x37;
 const int FLIP_ACC = 0x2F;
+
+// call function opcodes
+const int CALL_ABS = 0xCD;
