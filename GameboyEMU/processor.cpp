@@ -30,7 +30,7 @@ void processor_init() {
 	register_init(&accumulator, REGISTER_SIZE_8_BIT, 0);
 	register_init(&bc_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&de_register, REGISTER_SIZE_16_BIT, 0);
-	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
+	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0xFF);
 	register_init(&temp_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&stack_pointer, REGISTER_SIZE_16_BIT, 0);
 	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0);
@@ -281,6 +281,11 @@ void execute(int opcode) {
 		case JUMP_ABS_OP: {
 			get_full_operand_address();
 			set_register_value(&program_counter, temp_register.value);
+			break;
+		}
+
+		case JUMP_HL: {
+			set_register_value(&program_counter, hl_register.value);
 			break;
 		}
 
