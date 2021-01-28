@@ -7,7 +7,11 @@
 #include "processor.h"
 #include "parameter_processor.h"
 
+#define STACK_SIZE 512
+
 using namespace std;
+
+int* stack_array;
 
 Register accumulator;
 Register bc_register;
@@ -33,8 +37,10 @@ void processor_init() {
 	register_init(&de_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&hl_register, REGISTER_SIZE_16_BIT, 0);
 	register_init(&temp_register, REGISTER_SIZE_16_BIT, 0);
-	register_init(&stack_pointer, REGISTER_SIZE_16_BIT, 0);
-	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0x21);
+	register_init(&stack_pointer, REGISTER_SIZE_16_BIT, STACK_SIZE);
+	register_init(&program_counter, REGISTER_SIZE_16_BIT, 0);
+
+	stack_array = (int*)malloc(sizeof(int) * STACK_SIZE);
 }
 
 void load_from_abs_address_to_register(struct Register source_reg, struct Register* receiver_reg, bool high) {
@@ -103,9 +109,14 @@ void get_full_operand_address() {
 	temp_register.value = generate_full_address(lsb_parameter, msb_parameter);
 }
 
-// stack data by byte
-void stack(int data) {
+// push data to top of stack
+void stack_push(int data) {
+	stack_array[--stack_pointer.value] = data;
+}
 
+// pop data from the top of stack
+int stack_pop() {
+	return stack_array[stack_pointer.value++];
 }
 
 int register_is_upper(int register_id) {
@@ -327,8 +338,8 @@ void execute(int opcode) {
 			get_full_operand_address();
 			int jump_address = temp_register.value;
 			// stack program counter
-			stack((program_counter.value & 0xFF00) >> 8);
-			stack(program_counter.value & 0xFF);
+			stack_push((program_counter.value & 0xFF00) >> 8);
+			stack_push(program_counter.value & 0xFF);
 			// set program counter to absolute address
 			set_register_value(&program_counter, jump_address);
 			break;
