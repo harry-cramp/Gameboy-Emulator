@@ -25,3 +25,8 @@ const int LOAD_SP_HL = 0xF9;
 const int JUMP_ABS_OP = 0xC3;
 const int JUMP_HL = 0xE9;
 const int JUMP_REL = 0x18;
+
+// flag-wise instructions
+const int FLIP_CARRY = 0x3F;
+const int SET_CARRY = 0x37;
+const int FLIP_ACC = 0x2F;

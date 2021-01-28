@@ -9,4 +9,5 @@ const int FLAG_COUNT = 4;
 void flags_init();
 void clear_flag(int flag);
 void set_flag(int flag);
+void flip_flag(int flag);
 bool flag_set(int flag);

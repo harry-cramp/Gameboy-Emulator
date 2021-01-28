@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "flags.h"
 #include "opcodes.h"
 #include "memory.h"
 #include "register.h"
@@ -292,6 +293,27 @@ void execute(int opcode) {
 		case JUMP_REL: {
 			int destination = program_counter.value + get_data(get_program_counter_inc());
 			set_register_value(&program_counter, destination);
+			break;
+		}
+
+		case FLIP_CARRY: {
+			flip_flag(CARRY_FLAG);
+			clear_flag(SUBTRACT_FLAG);
+			clear_flag(HALF_CARRY_FLAG);
+			break;
+		}
+
+		case SET_CARRY: {
+			set_flag(CARRY_FLAG);
+			clear_flag(SUBTRACT_FLAG);
+			clear_flag(HALF_CARRY_FLAG);
+			break;
+		}
+
+		case FLIP_ACC: {
+			set_register_value(&accumulator, accumulator.value ^ 0xFF);
+			clear_flag(SUBTRACT_FLAG);
+			clear_flag(HALF_CARRY_FLAG);
 			break;
 		}
 

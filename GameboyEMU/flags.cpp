@@ -18,6 +18,10 @@ void set_flag(int flag) {
 	flags[flag] = 1;
 }
 
+void flip_flag(int flag) {
+	flags[flag] = !flags[flag];
+}
+
 bool flag_set(int flag) {
 	return flags[flag];
 }
