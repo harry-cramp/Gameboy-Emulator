@@ -24,3 +24,4 @@ const int LOAD_SP_HL = 0xF9;
 // jump instructions
 const int JUMP_ABS_OP = 0xC3;
 const int JUMP_HL = 0xE9;
+const int JUMP_REL = 0x18;
