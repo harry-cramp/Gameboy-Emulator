@@ -7,11 +7,11 @@
 #include "processor.h"
 #include "parameter_processor.h"
 
-#define STACK_SIZE 512
-
 using namespace std;
 
 int* stack_array;
+
+const int STACK_SIZE = 512;
 
 Register accumulator;
 Register bc_register;
