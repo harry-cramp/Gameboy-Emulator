@@ -343,6 +343,14 @@ void execute(int opcode) {
 			break;
 		}
 
+		case RETURN: {
+			int lsb = stack_pop();
+			int msb = stack_pop();
+			int return_address = generate_full_address(lsb, msb);
+			set_register_value(&program_counter, return_address);
+			break;
+		}
+
 		default:
 			// process non-constant opcodes
 			cout << "NON-CONSTANT OPCODE ENCOUNTERED" << endl;
