@@ -34,3 +34,6 @@ const int FLIP_ACC = 0x2F;
 // call function opcodes
 const int CALL_ABS = 0xCD;
 const int RETURN = 0xC9;
+
+// misc opcodes
+const int NOP = 0x00;

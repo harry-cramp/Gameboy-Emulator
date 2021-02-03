@@ -351,6 +351,11 @@ void execute(int opcode) {
 			break;
 		}
 
+		case NOP: {
+			// this operation serves no function, simply advances the program counter
+			break;
+		}
+
 		default:
 			// process non-constant opcodes
 			cout << "NON-CONSTANT OPCODE ENCOUNTERED" << endl;
